@@ -35,7 +35,7 @@ void ppmWrite(const char* filename, unsigned char* data, int w, int h) {
 
 	fclose(fp);
 }
-void oval(int x0, int y0, int a, int b, double theta, unsigned char data[]);
+void ellipse(int x0, int y0, int a, int b, double theta, unsigned char data[]);
 double rad(double angle);
 // test if the point is out of the window 
 bool isOutofWindow(int x, int y, int xc, int yc);
@@ -46,7 +46,6 @@ int main()
 {
 	int x, y, ra, rb;
 	double theta; 	
-	std::cout << theta << std::endl;
 	
 	// Get ra, rb, x, y, and theta
 	std::cout << "please input the semi-major axis a: ";
@@ -73,7 +72,7 @@ int main()
 	memset(data, 0, WIDTH * HEIGHT * 3);
 
 	// draw the ellipse
-	oval(x, y, ra, rb, theta, data);
+	ellipse(x, y, ra, rb, theta, data);
 
 	// output
 	ppmWrite("result.ppm", data, WIDTH, HEIGHT);
@@ -81,7 +80,7 @@ int main()
 	return 0;
 }
 
-void oval(int xc, int yc, int a, int b, double theta, unsigned char data[])
+void ellipse(int xc, int yc, int a, int b, double theta, unsigned char data[])
 {
 	// if a < b, set b to be the major axis
 	if(a < b)	
@@ -248,9 +247,9 @@ void oval(int xc, int yc, int a, int b, double theta, unsigned char data[])
 void draw(int x, int y, int xc, int yc, unsigned char* data)
 {
 	if(!isOutofWindow(x, y, xc, yc))
-		data[(WIDTH - (y + yc)) * WIDTH * 3 + (x + xc) * 3] = 255;
+		data[(HEIGHT - (y + yc)) * WIDTH * 3 + (x + xc) * 3] = 255;
 	if(!isOutofWindow(-x, -y, xc, yc))
-		data[(WIDTH - (-y + yc)) * WIDTH * 3 + (-x + xc) * 3] = 255;
+		data[(HEIGHT - (-y + yc)) * WIDTH * 3 + (-x + xc) * 3] = 255;
 }
 
 bool isOutofWindow(int x, int y, int xc, int yc)
