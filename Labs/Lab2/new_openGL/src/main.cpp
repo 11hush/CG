@@ -9,7 +9,6 @@
 #include <GLFW/glfw3.h>
 #include <GLUT/glut.h>
 
-
 static GLfloat spin = 0.0;
 
 void init(void);
